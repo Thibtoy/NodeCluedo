@@ -1,10 +1,26 @@
-const splitedUrl = window.location.pathname.split('/');
-const id = splitedUrl[(splitedUrl.length - 1)];
+import {loadMapAndData} from './game/method/loadMapAndData.js';
+import {displayGame} from './game/method/displayGame.js';
+
+const token = sessionStorage.getItem('token');
+function jwtDecode(t) {
+  		let token = {};
+  		token.raw = t;
+  		token.header = JSON.parse(window.atob(t.split('.')[0]));
+  		token.payload = JSON.parse(window.atob(t.split('.')[1]));
+  		return (token.payload)
+	}
+
+const decoded = jwtDecode(token);
 
 window.onload = function() {
-	$.post('/getGame/'+id, function(data) {
+	$.post('/getGame/'+token, function(data) {
 		if(!data) console.log('err');
-		else console.log(data);
+		else {
+			let game = data;
+			game.owner = game.state.players[decoded.player]
+			loadMapAndData(game);
+			displayGame(game);
+		}
 	});
 }
 

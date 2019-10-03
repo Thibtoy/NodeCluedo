@@ -10,8 +10,6 @@ const DIRECTION = {
 }
 
 function setPlayers(game) {
-	//this.state.characterMap.addCharacter(new Character("mmeLeblanc", 9, 0, DIRECTION.DOWN));
-	//this.state.characterMap.addCharacter(new Character("drOlive", 0, 17, DIRECTION.RIGHT));
 	let character1 = new Character("mmeLeblanc", 9, 0, DIRECTION.DOWN);
 	let character2 = new Character("drOlive", 0, 17, DIRECTION.RIGHT);
 	game.state.players.push(new Player(character1, 'Thibault'));

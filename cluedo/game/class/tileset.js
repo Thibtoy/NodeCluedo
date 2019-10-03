@@ -3,8 +3,12 @@ export class Tileset {
 		this.image = new Image();
 		this.image.src = url;
 		this.largeur = this.image.width/32;
-		this.image.onload = function() {
-			if(!this.complete) throw new Error("Erreur de chargement du tileset nommé \"" + url + "\".");
+		this.image.onload = this.isLoaded;
+	}
+	isLoaded = (event) => {
+		if(!event.target.complete)	throw new Error("Erreur de chargement du tileset nommé \"" + this.image.src + "\".");
+		else {
+			this.loaded = true;
 		}
 	}
 

@@ -1,5 +1,6 @@
 class Player {
 	constructor(character, name = "John") {
+		this.loaded = false;
 		this.state = {
 			character: character,
 			name: name,

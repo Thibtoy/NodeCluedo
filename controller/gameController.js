@@ -1,13 +1,16 @@
 const {initGame} = require('../cluedo/game/method/initGame');
 const {cardDistribution} = require('../cluedo/game/method/cardDistribution');
 const {setEvidenceList} = require('../cluedo/game/method/setEvidenceList');
+const jwt = require('jsonwebtoken')
+const SECRET = 'lesecret';
 
 exports.home = function(req, res) {
 	res.sendFile('./test.html', {root: './cluedo'});
 }
 
 exports.game = function(req, res) {
-	let game = this.inGame[req.params.id]
+	let decoded = jwt.verify(req.params.token, SECRET);
+	let game = this.inGame[decoded.id]
 	if (!game.state.started) game.state.started = true;
 	res.sendFile('./index.html', {root: './cluedo'});
 }
@@ -27,7 +30,8 @@ exports.findAlobby = function(req, res) {
 		let game = this.inGame[type];
 		if(game.state.connected >= 6 || game.state.started) continue;
 		newGame = false;
-		res.status(200).send(game)
+		let token = jwt.sign({id: game.id, player: (game.state.connected)}, SECRET)
+		res.status(200).send(token);
 	}
 	if (newGame) {
 		let game = JSON.parse(JSON.stringify(this.gameModel));
@@ -35,22 +39,30 @@ exports.findAlobby = function(req, res) {
 		cardDistribution(game);
 		setEvidenceList(game);
 		this.inGame[game.id] = game;
-		res.status(200).send(game)
+		let token = jwt.sign({id: game.id, player: (game.state.connected)}, SECRET)
+		res.status(200).send(token);
 	}
 }
 
 exports.connectGame = function(req, res) {
-	if (this.inGame[req.params.id].state.connected > 1) {
-		res.status(200).send({connected: true, path:"/game/"+req.params.id});
+	let decoded = jwt.verify(req.body.token, SECRET);
+	if (this.inGame[decoded.id].state.connected > 1) {
+		res.status(200).send({connected: true});
 	}
 	else res.status(200).send(false);
 }
 
 exports.getGame = function(req, res) {
-	if (this.inGame[req.params.id]) res.status(200).send(this.inGame[req.params.id]);
+	let decoded = jwt.verify(req.params.token, SECRET)
+	let game = this.inGame[decoded.id];
+	if (game) {
+		res.status(200).send(this.inGame[decoded.id])
+	}
 	else res.status(200).send(false);
 }
 
-// exports.lobby = function(req, res) {
-
-// }
+exports.loadedBug = function(req, res) {
+	let decoded = jwt.verify(req.params.token, SECRET)
+	this.inGame[decoded.id].state.players[decoded.player].loaded = true;
+	res.status(200).send(true);
+}

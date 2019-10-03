@@ -17,7 +17,7 @@ class Character {
 			etatAnimation: -1,
 		}
 		//this.image = new Image();
-		this.src = "./cluedo/game/assets/characterSprites/"+url+".png";
+		this.src = "../cluedo/game/assets/characterSprites/"+url+".png";
 		// this.image.referenceDuPerso = this;
 		// this.image.onload = function() {
 		// 	if(!this.complete) throw "Erreur de chargement du sprite Character";
@@ -58,9 +58,9 @@ class Character {
 // 	this.state.etatAnimation++;
 // 	}
 
-//  * Si aucune des deux conditions n'est vraie, c'est qu'on est immobile, 
-//  * donc il nous suffit de garder les valeurs 0 pour les variables 
-//  * frame, decalageX et decalageY
+//  // * Si aucune des deux conditions n'est vraie, c'est qu'on est immobile, 
+//  // * donc il nous suffit de garder les valeurs 0 pour les variables 
+//  // * frame, decalageX et decalageY
  
 
 // 		context.drawImage(

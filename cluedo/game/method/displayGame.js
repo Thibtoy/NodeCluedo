@@ -1,20 +1,35 @@
-export function displayGame() {
-	const state = this.state;
+export function displayGame(game) {
+	const state = game.state;
+	const map = game.map;
 	state.canva = document.getElementById('Canva');
 	state.ctx = state.canva.getContext('2d');
 
-	state.canva.width = state.groundMap.getWidth()*32;
-	state.canva.height = state.groundMap.getHeight()*32;
+	state.canva.width = map.groundMap.getWidth()*32;
+	state.canva.height = map.groundMap.getHeight()*32;
+
+	const token = sessionStorage.getItem('token');
+
+	
+	console.log(game)
+
+	function loadedBug() {
+		$.post('/loadedBug/'+token, function() {
+			setTimeout(() => document.location.reload(), 1)
+		})
+	}
 
 	setInterval(() => {
-		state.groundMap.drawMap(state.ctx);
-		state.wallMap.drawMap(state.ctx);
-		state.upstairMap.drawMap(state.ctx);
-		state.characterMap.drawMap(state.ctx);
-		if (this.state.popUp.visibility) {
-			this.method.drawPopUp();
-		}	
+		if (!game.owner.loaded) {
+			loadedBug()	
+		}
+		map.groundMap.drawMap(state.ctx);
+		map.wallMap.drawMap(state.ctx);
+		map.upstairMap.drawMap(state.ctx);
+		map.characterMap.drawMap(state.ctx);
+		// if (this.state.popUp.visibility) {
+		// 	this.method.drawPopUp();
+		// }	
 	}, 30);
 
-	this.method.playerTurn();
+	//this.method.playerTurn();
 }
