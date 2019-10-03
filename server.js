@@ -24,5 +24,5 @@ gameSchema().catch(err => console.log(err))
 			const callFiles = require('./routes/callFiles');
 	  		callFiles(app);
 
-			app.listen(PORT, () => console.log('listening on '+PORT));
+			app.listen(PORT, () => console.log('listening on: '+PORT));
 		});
