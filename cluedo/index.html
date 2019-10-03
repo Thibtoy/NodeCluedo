@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Cluedo</title>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+	<style>
+		* {
+			margin: 0;
+		}
+		body{
+			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
+			overflow-x: hidden;
+			background-color: black;
+		}
+
+		#ClueList, #EvidenceList {
+			width: 300px;
+			background-color: white;
+			align-self: flex-start;
+		}
+	</style>
+</head>
+<body>
+	<div id="ClueList"></div>
+	<canvas id='Canva'></canvas>
+	<div id="EvidenceList">Test</div>
+	<script type="module" src="../cluedo/initialisation.js"></script>
+</body>
+</html>
