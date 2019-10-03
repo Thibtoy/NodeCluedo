@@ -43,7 +43,7 @@ exports.connectGame = function(req, res) {
 	if (this.inGame[req.params.id].state.connected > 1) {
 		res.status(200).send({connected: true, path:"/game/"+req.params.id});
 	}
-	res.status(200).send(false);
+	else res.status(200).send(false);
 }
 
 exports.getGame = function(req, res) {
