@@ -6,11 +6,13 @@ module.exports = function(app) {
 	gameController.connectGame = gameController.connectGame.bind(app.Store);
 	gameController.getGame = gameController.getGame.bind(app.Store);
 	gameController.loadedBug = gameController.loadedBug.bind(app.Store);
+	gameController.listenGame = gameController.listenGame.bind(app.Store);
+	gameController.throwDices = gameController.throwDices.bind(app.Store);
 
 	app.route('/')
 		.get(gameController.home);
 
-	app.route('/game/:token')
+	app.route('/game')
 		.get(gameController.game);
 
 	app.route('/findAlobby')
@@ -22,8 +24,14 @@ module.exports = function(app) {
 	app.route('/lobby/:id')
 		.get(gameController.lobby);
 
-	app.route('/getGame/:token')
+	app.route('/getGame')
 		.post(gameController.getGame);
+
+	app.route('/listenGame')
+		.post(gameController.listenGame)
+
+	app.route('/throwDices')
+		.post(gameController.throwDices)
 
 	app.route('/loadedBug/:token')
 		.post(gameController.loadedBug)

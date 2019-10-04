@@ -10,8 +10,7 @@
 // import {randomPick} from '../method/randomPick.js';
 // import {initGame} from '../method/initGame.js';
 // import {cardDistribution} from '../method/cardDistribution.js';
-// import {showPopUp} from '../method/showPopUp.js';
-// import {removePopUp} from '../method/removePopUp.js';
+
 // import {throwDices} from '../method/throwDices.js';
 // import {startTurn} from '../method/startTurn.js';
 // import {mouve} from '../method/mouve.js';

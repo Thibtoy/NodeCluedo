@@ -9,9 +9,6 @@ exports.home = function(req, res) {
 }
 
 exports.game = function(req, res) {
-	let decoded = jwt.verify(req.params.token, SECRET);
-	let game = this.inGame[decoded.id]
-	if (!game.state.started) game.state.started = true;
 	res.sendFile('./index.html', {root: './cluedo'});
 }
 
@@ -53,12 +50,40 @@ exports.connectGame = function(req, res) {
 }
 
 exports.getGame = function(req, res) {
-	let decoded = jwt.verify(req.params.token, SECRET)
+	jwt.verify(req.body.token, SECRET, (err, decoded) => {
+		if (err) res.status(200).send(false);
+		else {
+			let game = this.inGame[decoded.id];
+			if (!game) res.status(200).send(false);
+			if (!game.state.started) game.state.started = true;
+			res.status(200).send(game);
+		}
+	});
+}
+
+exports.listenGame = function(req, res) {
+	let decoded = jwt.verify(req.body.token, SECRET)
 	let game = this.inGame[decoded.id];
-	if (game) {
-		res.status(200).send(this.inGame[decoded.id])
+	if(!game) res.status(404);
+	else if (decoded.player === game.state.turn) {
+		if (!game.turnOn)  {
+			game.turnOn = true;
+			game.popUp = true;
+			game.popUpContent = 'tour de ' + game.state.players[game.state.turn].state.name;
+		}
+		res.status(200).send(true);
 	}
 	else res.status(200).send(false);
+}
+
+exports.throwDices = function(req, res) {
+	let decoded = jwt.verify(req.body.token, SECRET)
+	let game = this.inGame[decoded.id];
+	if (decoded.player === game.state.turn) {
+		game.popUp = false;
+		res.status(200).send(true);
+	}
+	else res.status(200).send('il ne faut pas tricher!')
 }
 
 exports.loadedBug = function(req, res) {

@@ -1,3 +1,5 @@
+import {update} from './update.js';
+
 export function displayGame(game) {
 	const state = game.state;
 	const map = game.map;
@@ -22,13 +24,14 @@ export function displayGame(game) {
 		if (!game.owner.loaded) {
 			loadedBug()	
 		}
+		update(token, game);
 		map.groundMap.drawMap(state.ctx);
 		map.wallMap.drawMap(state.ctx);
 		map.upstairMap.drawMap(state.ctx);
 		map.characterMap.drawMap(state.ctx);
-		// if (this.state.popUp.visibility) {
-		// 	this.method.drawPopUp();
-		// }	
+		if (game.state.popUp.visibility) {
+			game.drawPopUp();
+		}	
 	}, 30);
 
 	//this.method.playerTurn();

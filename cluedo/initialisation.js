@@ -1,7 +1,13 @@
 import {loadMapAndData} from './game/method/loadMapAndData.js';
 import {displayGame} from './game/method/displayGame.js';
+import {listenGame} from './game/method/listenGame.js';
+import {showPopUp} from './game/method/showPopUp.js';
+import {removePopUp} from './game/method/removePopUp.js';
+import {drawPopUp} from './game/method/drawPopUp.js';
+import {createPopUpList} from './game/method/createPopUpList.js';
+import {throwDices} from './game/method/throwDices.js';
 
-const token = sessionStorage.getItem('token');
+const token = sessionStorage.getItem('token') || 'token';
 function jwtDecode(t) {
   		let token = {};
   		token.raw = t;
@@ -10,22 +16,23 @@ function jwtDecode(t) {
   		return (token.payload)
 	}
 
-const decoded = jwtDecode(token);
+const decoded = (token === 'token')? token : jwtDecode(token);
 
 window.onload = function() {
-	$.post('/getGame/'+token, function(data) {
-		if(!data) console.log('err');
+	$.post('/getGame', {token}, function(data) {
+		if(!data) window.location.pathname = '/';
 		else {
 			let game = data;
-			game.owner = game.state.players[decoded.player]
+			game.showPopUp = showPopUp.bind(game);
+			game.removePopUp = removePopUp.bind(game);
+			game.drawPopUp = drawPopUp.bind(game);
+			game.throwDices = throwDices.bind(game);
+			game.owner = game.state.players[decoded.player];
+			game.turnOn = false;
 			loadMapAndData(game);
+			createPopUpList(game);
 			displayGame(game);
+			if (game.owner.loaded) listenGame(token, game);
 		}
 	});
 }
-
-// // game.method.createPopUpList();
-
-// console.log(game);
-// window.onload = game.method.displayGame();
-console.log('coucou');

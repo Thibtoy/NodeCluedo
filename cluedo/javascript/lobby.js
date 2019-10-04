@@ -14,6 +14,6 @@ const token = sessionStorage.getItem('token');
 setInterval(function() {
 	$.post('/connectGame', {token}, function(data){
 		if (!data.connected) console.log(false);
-		else window.location.pathname = '/game/'+token
+		else window.location.pathname = '/game'
 	})
 }, 100);
