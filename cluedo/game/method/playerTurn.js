@@ -1,12 +1,12 @@
-export function playerTurn() {
-	//let state = this.state;
-	//let player = state.players[state.turn];
-	//state.currentPlayer = state.players[state.turn];
-	//this.method.fillInfos();
-	//this.method.showPopUp('tour de' + player.state.name);
-	//window.addEventListener('keydown', this.method.turnMethod.throwDices);
-	// $.post('/whoseTurn', {token}, function(turn) {
-	// 	if(!turn) console.log('error');
-	// 	else if(turn === playerNumber) 
-	// })
+function playerTurn(game) {
+	if (game.step === 0) {
+		game.currentPlayer = game.state.players[game.state.turn];
+		game.step = 1;
+		game.popUp = true;
+		game.popUpContent = 'tour de '+game.currentPlayer.state.name;
+	}
 };
+
+module.exports = {
+	playerTurn: playerTurn
+}

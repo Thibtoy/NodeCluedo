@@ -1,6 +1,8 @@
 const {initGame} = require('../cluedo/game/method/initGame');
 const {cardDistribution} = require('../cluedo/game/method/cardDistribution');
 const {setEvidenceList} = require('../cluedo/game/method/setEvidenceList');
+const {playerTurn} = require('../cluedo/game/method/playerTurn');
+const {throwDices} = require('../cluedo/game/method/throwDices');
 const jwt = require('jsonwebtoken')
 const SECRET = 'lesecret';
 
@@ -65,22 +67,19 @@ exports.listenGame = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET)
 	let game = this.inGame[decoded.id];
 	if(!game) res.status(404);
-	else if (decoded.player === game.state.turn) {
-		if (!game.turnOn)  {
-			game.turnOn = true;
-			game.popUp = true;
-			game.popUpContent = 'tour de ' + game.state.players[game.state.turn].state.name;
-		}
-		res.status(200).send(true);
-	}
+	playerTurn(game);
+	if (decoded.player === game.state.turn) res.status(200).send({step: game.step});
 	else res.status(200).send(false);
 }
 
 exports.throwDices = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET)
 	let game = this.inGame[decoded.id];
-	if (decoded.player === game.state.turn) {
-		game.popUp = false;
+	if (decoded.player === game.state.turn && game.step === 1) {
+		game.step = 2;
+		throwDices(game.currentPlayer, 2);
+		game.popUpContent = 'Jet de dés: '+ game.currentPlayer.state.dices[0]+
+		    ', '+game.currentPlayer.state.dices[1]+'.';
 		res.status(200).send(true);
 	}
 	else res.status(200).send('il ne faut pas tricher!')

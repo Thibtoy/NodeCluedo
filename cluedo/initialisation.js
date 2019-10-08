@@ -5,9 +5,10 @@ import {showPopUp} from './game/method/showPopUp.js';
 import {removePopUp} from './game/method/removePopUp.js';
 import {drawPopUp} from './game/method/drawPopUp.js';
 import {createPopUpList} from './game/method/createPopUpList.js';
-import {throwDices} from './game/method/throwDices.js';
+import {throwDices} from './javascript/throwDices.js';
 
 const token = sessionStorage.getItem('token') || 'token';
+
 function jwtDecode(t) {
   		let token = {};
   		token.raw = t;
