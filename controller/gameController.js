@@ -3,6 +3,7 @@ const {cardDistribution} = require('../cluedo/game/method/cardDistribution');
 const {setEvidenceList} = require('../cluedo/game/method/setEvidenceList');
 const {playerTurn} = require('../cluedo/game/method/playerTurn');
 const {throwDices} = require('../cluedo/game/method/throwDices');
+const {mouve} = require('../cluedo/game/method/mouve');
 const jwt = require('jsonwebtoken')
 const SECRET = 'lesecret';
 
@@ -57,7 +58,7 @@ exports.getGame = function(req, res) {
 		else {
 			let game = this.inGame[decoded.id];
 			if (!game) res.status(200).send(false);
-			if (!game.state.started) game.state.started = true;
+			else if (!game.state.started) game.state.started = true;
 			res.status(200).send(game);
 		}
 	});
@@ -83,6 +84,29 @@ exports.throwDices = function(req, res) {
 		res.status(200).send(true);
 	}
 	else res.status(200).send('il ne faut pas tricher!')
+}
+
+exports.mouve = function(req, res) {
+	jwt.verify(req.body.token, SECRET, (err, decoded) => {
+		let game = this.inGame[decoded.id];
+		if (!game.mouve) mouve(game, req.body.code);
+		res.status(200).send(true);
+	})
+}
+
+exports.animation = function(req, res) {
+	jwt.verify(req.body.token, SECRET, (err, decoded) => {
+		let game = this.inGame[decoded.id];
+		let etatAnimation = game.state.players[decoded.player].state.character.state.etatAnimation
+		if (game.mouve) {
+			game.state.players[decoded.player].state.character.state.etatAnimation += 1;
+			if (etatAnimation >= 9) {
+				game.state.players[decoded.player].state.character.state.etatAnimation = -1;
+				game.mouve = false;
+			}
+		}
+		res.status(200).send(true);
+	})
 }
 
 exports.loadedBug = function(req, res) {

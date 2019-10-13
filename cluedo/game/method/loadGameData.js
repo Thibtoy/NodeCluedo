@@ -1,4 +1,6 @@
 const fs = require('fs');
+const {handleObstacle} = require('./obstacle.js');
+
 
 function loadGameData(game) {
 	return new Promise((resolve, reject) => {
@@ -12,6 +14,10 @@ function loadGameData(game) {
 				for (let type in data) {
 					game.state[type] = data[type];
 				}
+				var characterField = new Array();
+				characterField = handleObstacle(characterField, game.state.groundMap.field, [1,2,3,4,5,6,7]);
+				characterField = handleObstacle(characterField, game.state.wallMap.field, [13]);
+				game.state.characterMap = {tileset: 'groundTileset', field: characterField};
 				resolve(game);
 			});
 		});

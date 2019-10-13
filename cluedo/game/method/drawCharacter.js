@@ -5,6 +5,7 @@ const DIRECTION = {
 	38: 3
 }
 
+const token = sessionStorage.getItem('token');
 const DUREE_ANIMATION = 3;
 const DUREE_DEPLACEMENT = 9;
 
@@ -12,8 +13,7 @@ export function drawCharacter(context) {
 	let state = this.state;
 	let frame = 1; // Numéro de l'image à prendre pour l'animation
 	let decalageX = 0, decalageY = 0; // Décalage à appliquer à la position du personnage
-	if(state.etatAnimation >= DUREE_DEPLACEMENT) this.state.etatAnimation = -1;
-    else if(state.etatAnimation >= 0) {
+    if(state.etatAnimation >= 0) {
 	// On calcule l'image (frame) de l'animation à afficher
 		frame = Math.floor(state.etatAnimation / DUREE_ANIMATION);
 		if(frame > 2) frame %= 3;
@@ -27,7 +27,7 @@ export function drawCharacter(context) {
 		else if(state.direction === 1) decalageX = pixelsAParcourir;
 	 	else if(state.direction === 2) decalageX = -pixelsAParcourir;
 	
-		this.state.etatAnimation++;
+		$.post('/animation', {token});
 	}
 
  // * Si aucune des deux conditions n'est vraie, c'est qu'on est immobile, 

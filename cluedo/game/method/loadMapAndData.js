@@ -1,5 +1,4 @@
 import {Map} from '../class/map.js';
-import {handleObstacle} from '../method/obstacle.js';
 import {drawCharacter} from '../method/drawCharacter.js';
 
 export function loadMapAndData(game) {
@@ -10,10 +9,6 @@ export function loadMapAndData(game) {
 		}
 		continue;
 	}
-	var characterField = new Array();
-	characterField = handleObstacle(characterField, game.map.groundMap.state.field, [1,2,3,4,5,6,7]);
-	characterField = handleObstacle(characterField, game.map.wallMap.state.field, [13]);
-	game.map.characterMap = new Map('groundTileset', characterField);
 	for (let i = 0, l = game.state.players.length; i < l; i++) {
 		let character = game.state.players[i].state.character;
 		character.image = new Image();
@@ -24,7 +19,7 @@ export function loadMapAndData(game) {
 			this.ref.width = this.width / 3;
 			this.ref.height = this.height / 4;
 		}
-		character.drawCharacter = drawCharacter.bind(character)
 		game.map.characterMap.addCharacter(character);
+		character.drawCharacter = drawCharacter.bind(character)
 	}
 }

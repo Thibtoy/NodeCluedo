@@ -1,4 +1,4 @@
-export function handleObstacle(characterField, layoutField, walkable) {
+function handleObstacle(characterField, layoutField, walkable) {
 	if (characterField.length === 0) {
 		for (let i = 0, l = layoutField.length; i < l; i++) {
 			let row = new Array();
@@ -25,4 +25,8 @@ export function handleObstacle(characterField, layoutField, walkable) {
 		}
 	}
 	return characterField;
+}
+
+module.exports = {
+	handleObstacle: handleObstacle
 }
