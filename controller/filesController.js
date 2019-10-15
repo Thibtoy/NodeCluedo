@@ -5,6 +5,8 @@ const mimeType = {
 	'.js': 'text/javascript',
     '.json': 'application/json',
     '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
 }
 
 exports.file = function(req, res) {

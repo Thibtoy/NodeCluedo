@@ -98,7 +98,7 @@ exports.animation = function(req, res) {
 	jwt.verify(req.body.token, SECRET, (err, decoded) => {
 		let game = this.inGame[decoded.id];
 		let etatAnimation = game.state.players[decoded.player].state.character.state.etatAnimation
-		if (game.mouve) {
+		if (game.mouve && decoded.player === game.state.turn) {
 			game.state.players[decoded.player].state.character.state.etatAnimation += 1;
 			if (etatAnimation >= 9) {
 				game.state.players[decoded.player].state.character.state.etatAnimation = -1;
@@ -106,7 +106,7 @@ exports.animation = function(req, res) {
 			}
 		}
 		res.status(200).send(true);
-	})
+	});
 }
 
 exports.loadedBug = function(req, res) {
