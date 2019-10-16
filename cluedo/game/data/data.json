@@ -164,5 +164,44 @@
 		"weapon": ["Chandelier", "Clé anglaise", "Corde", "Matraque", "Poignard", "Revolver"],
 
 		"room": ["Cuisine", "Grand Salon", "Petit Salon", "Salle à Manger", "Bureau", "Bibliothéque", "Véranda", "Hall", "Studio"]
-	}
+	},
+
+	"characters" : [
+		{
+			"name": "MmeLeblanc",
+			"x": 9,
+			"y": 0,
+			"direction": "DOWN"
+		},
+		{
+			"name": "DrOlive",
+			"x": 14,
+			"y": 0,
+			"direction": "DOWN"
+		},
+		{
+			"name": "MmePervenche",
+			"x": 23,
+			"y": 6,
+			"direction": "LEFT"
+		},
+		{
+			"name": "PrViolet",
+			"x": 23,
+			"y": 19,
+			"direction": "LEFT"
+		},
+		{
+			"name": "MlleRose",
+			"x": 9,
+			"y": 24,
+			"direction": "TOP"
+		},
+		{
+			"name": "ClMoutarde",
+			"x": 0,
+			"y": 17,
+			"direction": "RIGHT"
+		}		
+	]
 }

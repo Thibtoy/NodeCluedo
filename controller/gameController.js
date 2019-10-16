@@ -4,6 +4,7 @@ const {setEvidenceList} = require('../cluedo/game/method/setEvidenceList');
 const {playerTurn} = require('../cluedo/game/method/playerTurn');
 const {throwDices} = require('../cluedo/game/method/throwDices');
 const {mouve} = require('../cluedo/game/method/mouve');
+const {newPlayer} = require('../cluedo/game/method/newPlayer');
 const jwt = require('jsonwebtoken')
 const SECRET = 'lesecret';
 
@@ -17,10 +18,7 @@ exports.game = function(req, res) {
 
 exports.lobby = function(req, res) {
 	let game = this.inGame[req.params.id];
-	if (game && game.state.connected < 6) {
-		game.state.connected += 1;
-		res.sendFile('./templates/lobby.html', {root: './'});
-	}
+	if (game) res.sendFile('./templates/lobby.html', {root: './'});
 	else res.redirect('/');
 }
 
@@ -30,23 +28,28 @@ exports.findAlobby = function(req, res) {
 		let game = this.inGame[type];
 		if(game.state.connected >= 6 || game.state.started) continue;
 		newGame = false;
-		let token = jwt.sign({id: game.id, player: (game.state.connected)}, SECRET)
+		newPlayer(game, req.body.name);
+		let token = jwt.sign({id: game.id, player: (game.state.connected)}, SECRET);
+		game.state.connected++;
 		res.status(200).send(token);
 	}
 	if (newGame) {
 		let game = JSON.parse(JSON.stringify(this.gameModel));
 		initGame(game);
-		cardDistribution(game);
-		setEvidenceList(game);
+		newPlayer(game, req.body.name);
 		this.inGame[game.id] = game;
 		let token = jwt.sign({id: game.id, player: (game.state.connected)}, SECRET)
+		game.state.connected++;
 		res.status(200).send(token);
 	}
 }
 
 exports.connectGame = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET);
-	if (this.inGame[decoded.id].state.connected > 1) {
+	let game = this.inGame[decoded.id]
+	if (game && game.state.connected > 1) {
+		cardDistribution(game);
+		setEvidenceList(game);
 		res.status(200).send({connected: true});
 	}
 	else res.status(200).send(false);
@@ -68,7 +71,7 @@ exports.listenGame = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET)
 	let game = this.inGame[decoded.id];
 	if(!game) res.status(404);
-	playerTurn(game);
+	if (game.step === 0) playerTurn(game);
 	if (decoded.player === game.state.turn) res.status(200).send({step: game.step});
 	else res.status(200).send(false);
 }
@@ -76,6 +79,7 @@ exports.listenGame = function(req, res) {
 exports.throwDices = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET)
 	let game = this.inGame[decoded.id];
+	game.newTurn = false;
 	if (decoded.player === game.state.turn && game.step === 1) {
 		game.step = 2;
 		throwDices(game.currentPlayer, 2);
@@ -89,6 +93,7 @@ exports.throwDices = function(req, res) {
 exports.mouve = function(req, res) {
 	jwt.verify(req.body.token, SECRET, (err, decoded) => {
 		let game = this.inGame[decoded.id];
+		if (game.popUp) game.popUp = false;
 		if (!game.mouve) mouve(game, req.body.code);
 		res.status(200).send(true);
 	})
@@ -111,6 +116,7 @@ exports.animation = function(req, res) {
 
 exports.loadedBug = function(req, res) {
 	let decoded = jwt.verify(req.params.token, SECRET)
+	console.log(decoded);
 	this.inGame[decoded.id].state.players[decoded.player].loaded = true;
 	res.status(200).send(true);
 }

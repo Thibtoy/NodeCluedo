@@ -7,6 +7,7 @@ import {drawPopUp} from './game/method/drawPopUp.js';
 import {createPopUpList} from './game/method/createPopUpList.js';
 import {throwDices} from './javascript/throwDices.js';
 import {mouve} from './javascript/mouve.js';
+import {removeEventListener} from './javascript/removeEventListener.js';
 
 const token = sessionStorage.getItem('token') || 'token';
 
@@ -25,11 +26,13 @@ window.onload = function() {
 		if(!data) window.location.pathname = '/';
 		else {
 			let game = data;
+			console.log(game.state);
 			game.showPopUp = showPopUp.bind(game);
 			game.removePopUp = removePopUp.bind(game);
 			game.drawPopUp = drawPopUp.bind(game);
 			game.throwDices = throwDices.bind(game);
 			game.mouve = mouve.bind(game);
+			game.removeEventListener = removeEventListener.bind(game);
 			game.owner = game.state.players[decoded.player];
 			game.turnOn = false;
 			loadMapAndData(game);

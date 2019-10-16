@@ -12,7 +12,7 @@ export function displayGame(game) {
 	const token = sessionStorage.getItem('token');
 
 	
-	console.log(game)
+	console.log(token);
 
 	function loadedBug() {
 		$.post('/loadedBug/'+token, function() {

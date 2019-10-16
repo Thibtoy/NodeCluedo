@@ -9,12 +9,13 @@ function jwtDecode(t) {
 let button = document.getElementById('GO');
 
 button.onclick = function() {
-	$.post('findAlobby', function(token) {
+	let name = document.getElementById('PlayerName').value;
+	$.post('findAlobby', {name}, function(token) {
 		if(!token) console.log('error');
 		else {
 			let decoded = jwtDecode(token);
 			sessionStorage.setItem('token', token)
 			window.location.pathname = '/lobby/'+decoded.id;
 		}
-	})
+	});
 }

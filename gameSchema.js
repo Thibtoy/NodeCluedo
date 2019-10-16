@@ -1,7 +1,6 @@
 const {Game} = require('./cluedo/game/game');
 const {loadGameData} = require('./cluedo/game/method/loadGameData');
 const {setRoomIndex} = require('./cluedo/game/method/setRoomIndex');
-const {setPlayers} = require('./cluedo/game/method/setPlayers');
 
 function gameSchema () {
 	return new Promise ((resolve, reject) => {
@@ -9,7 +8,6 @@ function gameSchema () {
 		loadGameData(game).catch(err => reject(err))
 							.then(game => {
 								setRoomIndex(game);
-								setPlayers(game);
 								resolve(game);
 							})
 		})	

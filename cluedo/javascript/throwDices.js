@@ -3,7 +3,6 @@ export function throwDices() {
 	let that = this;
 	window.removeEventListener('keydown', this.throwDices);
 	$.post('/throwDices', {token}, function(res){
-		console.log('coucou');
 		window.addEventListener('keydown', that.mouve);
 	})
 }

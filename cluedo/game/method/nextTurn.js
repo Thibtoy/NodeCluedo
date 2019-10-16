@@ -1,6 +1,14 @@
-export function nextTurn() {
-	this.state.currentPlayer.state.mouve = 0;
-		this.state.turn++
-		if (this.state.turn >= this.state.players.length) this.state.turn = 0;
-		this.method.playerTurn();
+const {playerTurn} = require('./playerTurn');
+
+function nextTurn(game) {
+	game.currentPlayer.state.mouve = 0;
+	game.lastStep = game.step;
+	game.step = 0;
+	game.state.turn++
+	if (game.state.turn >= game.state.players.length) game.state.turn = 0;
+	game.newTurn = true;
+}
+
+module.exports = {
+	nextTurn: nextTurn
 }
