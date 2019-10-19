@@ -16,7 +16,7 @@ class Player {
 		}
 	}
 
-	throwDice = (nb, callBack) => {
+	throwDice = (nb) => {
 		let results = new Array();
 
 		for (let i = 0, l = nb; i < l; i++){ 
