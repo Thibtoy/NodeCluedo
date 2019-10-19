@@ -42,7 +42,7 @@ class Player {
 // 		if (accusation === game.truth) console.log('gameEnd');
 // 		else console.log('nextTurn');
 // 	}
-// }
+}
 
 module.exports = {
 	Player: Player
