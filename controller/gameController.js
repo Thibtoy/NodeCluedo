@@ -46,13 +46,16 @@ exports.findAlobby = function(req, res) {
 
 exports.connectGame = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET);
-	let game = this.inGame[decoded.id]
-	if (game && game.state.connected > 1) {
+	let game = this.inGame[decoded.id];
+	let player = game.state.players[decoded.player];
+	if (req.body.ready && !player.ready) player.ready = true;
+	if (!req.body.ready && player.ready) player.ready = false;
+	if (game && game.state.connected > 2) {
 		cardDistribution(game);
 		setEvidenceList(game);
 		res.status(200).send({connected: true});
 	}
-	else res.status(200).send(false);
+	else res.status(200).send({players: game.state.players});
 }
 
 exports.getGame = function(req, res) {

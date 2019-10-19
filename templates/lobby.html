@@ -2,14 +2,81 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Clue Game</title>
 	<script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
+  	<style type="text/css">
+    	* {
+    		margin: 0;
+    	}
+    	body {
+    		width: 100vw;
+    		height: 100vh;
+    		background-image: url('../cluedo/webAssets/backGround.jpg');
+    		background-size: cover;
+    		background-repeat: no-repeat;
+    		background-position: center;
+    		background-attachment: fixed;
+    	}
+    	header {
+    		width: 100vw;
+    		height: 37.6px;
+    		background-image: url('../cluedo/webAssets/questionMark.jpg');
+    		box-shadow: 0 0 0.5em 0.01em white;
+    	}
+    	.headerAside {
+    		width: 15%;
+    		display: inline-block;
+    	}
+    	.headerMain {
+    		width: 70%;
+    		color: white;
+    		text-align: center;
+    		text-shadow: 1px 1px 2px black, 0 0 1em gold, 0 0 0.2em gold;
+    		display: inline-block;
+    	}
+    	.homeBox {
+			height: 250px;
+	   	}
+    	.homeBoxAside {
+    		height: calc((100% - 287.6px)/2);
+    	}
+    	.FormBox {
+    		display: inline-flex;
+    		width: 250px;
+    		height: 100%;
+    		flex-direction: column;
+    		justify-content: space-evenly;
+    		align-items: center;
+    		border-radius: 3px;
+    		background-color: rgba(255, 255, 255, 0.85);
+    		box-shadow: 0 0 0.8em 0.02em gold;
+    	}
+    	.FormBoxAside {
+    		display: inline-block;
+    		width: calc((100% - 250px) / 2);
+    	}
+    </style>
 </head>
 <body>
-	lobby
+	<header>
+		<div class="headerAside"></div>
+		<h1 class="headerMain">Clue Game</h1>
+		<div class="headerAside"></div>
+	</header>
+	<div class="homeBoxAside"></div>
+	<div class="homeBox">
+		<div class="FormBoxAside"></div>
+		<div class="FormBox">
+			<h3>Lobby</h3>
+			<ul id="PlayerList"></ul>
+			<input id='GO' type="button" value="Ready">
+		</div>
+		<div class="FormBoxAside"></div>
+	</div>
+	<div class="homeBoxAside"></div>
 	<script type="module" src="../cluedo/javascript/lobby.js"></script>
 </body>
 </html>
