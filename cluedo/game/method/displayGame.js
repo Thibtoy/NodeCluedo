@@ -11,9 +11,6 @@ export function displayGame(game) {
 
 	const token = sessionStorage.getItem('token');
 
-	
-	console.log(token);
-
 	function loadedBug() {
 		$.post('/loadedBug/'+token, function() {
 			setTimeout(() => document.location.reload(), 1)
@@ -33,6 +30,4 @@ export function displayGame(game) {
 			game.drawPopUp();
 		}	
 	}, 30);
-
-	//this.method.playerTurn();
 }

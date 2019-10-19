@@ -6,7 +6,6 @@ export function update(token, game) {
 			game.state.players[i].state.character.state = updated.state.players[i].state.character.state;
 		}
 		if (updated.newTurn) {
-			console.log(updated.lastStep);
 			game.removeEventListener(updated.lastStep);
 			listenGame(token, game);
 		}

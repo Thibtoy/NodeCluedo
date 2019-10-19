@@ -11,7 +11,6 @@ export function loadMapAndData(game) {
 	}
 	for (let i = 0, l = game.state.players.length; i < l; i++) {
 		let character = game.state.players[i].state.character;
-		console.log(character);
 		character.image = new Image();
 		character.image.src = character.src
 		character.image.ref = character;

@@ -48,9 +48,13 @@ exports.connectGame = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET);
 	let game = this.inGame[decoded.id];
 	let player = game.state.players[decoded.player];
-	if (req.body.ready && !player.ready) player.ready = true;
-	if (!req.body.ready && player.ready) player.ready = false;
-	if (game && game.state.connected > 2) {
+	let allReady = true;
+	if (req.body.ready === 'true' && !player.ready) player.ready = true;
+	if (req.body.ready === 'false' && player.ready) player.ready = false;
+	for (let i = 0, n = game.state.players.length; i < n; i++) {
+		if (!game.state.players[i].ready) allReady = false
+	}
+	if (game && ((game.state.connected > 1 && allReady) || game.state.connected > 5)) {
 		cardDistribution(game);
 		setEvidenceList(game);
 		res.status(200).send({connected: true});
@@ -119,7 +123,12 @@ exports.animation = function(req, res) {
 
 exports.loadedBug = function(req, res) {
 	let decoded = jwt.verify(req.params.token, SECRET)
-	console.log(decoded);
 	this.inGame[decoded.id].state.players[decoded.player].loaded = true;
+	res.status(200).send(true);
+}
+
+exports.test = function(req, res) {
+	let decoded = jwt.verify(req.body.token, SECRET);
+	this.inGame[decoded.id].end = true;
 	res.status(200).send(true);
 }

@@ -24,5 +24,14 @@ gameSchema().catch(err => console.log(err))
 			const callFiles = require('./routes/callFiles');
 	  		callFiles(app);
 
+	  		setInterval(() => {
+	  			for (let type in app.Store.inGame) {
+	  				let game = app.Store.inGame[type];
+	  				if (game.end || (game.date + 3600000) < Date.now()){
+	  					delete app.Store.inGame[type];
+	  				} 
+	  			}
+	  		}, 600000);
+
 			app.listen(PORT, () => console.log('listening on: '+PORT));
 		});

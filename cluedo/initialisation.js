@@ -26,7 +26,6 @@ window.onload = function() {
 		if(!data) window.location.pathname = '/';
 		else {
 			let game = data;
-			console.log(game.state);
 			game.showPopUp = showPopUp.bind(game);
 			game.removePopUp = removePopUp.bind(game);
 			game.drawPopUp = drawPopUp.bind(game);

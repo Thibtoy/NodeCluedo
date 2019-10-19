@@ -7,6 +7,7 @@ function initGame(game) {
 	let copy = {};
 	let shuffled = new Array();
 	game.id = crypto.randomBytes(30).toString('hex');
+	game.date = Date.now();
 	for (let type in state.cards) {
 		copy[type] = copyArray(state.cards[type]);
 	}

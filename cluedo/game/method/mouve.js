@@ -10,7 +10,7 @@ function mouve(game, code) {
 		if (player.state.mouve > 0) {
 			characterMouve(code, game, (result, state) => {
 				game.step = 3;
-				// if(result) {
+				if(result) {
 				 player.state.mouve -= 1;
 				 game.mouve = true;
 				// 	if (state != 0) {
@@ -19,7 +19,7 @@ function mouve(game, code) {
 				// 		this.method.action('What do you want to do?', this.popUpList.roomChoice);
 				// 		window.addEventListener('keydown', this.method.turnMethod.choice);
 				// 	}
-				// }
+				}
 			});
 		}
 		else return false;

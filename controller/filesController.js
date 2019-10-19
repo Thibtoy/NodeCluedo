@@ -7,6 +7,7 @@ const mimeType = {
     '.png': 'image/png',
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
+    '.svg': 'image/svg+xml',
 }
 
 exports.file = function(req, res) {
