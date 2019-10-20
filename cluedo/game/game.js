@@ -10,6 +10,7 @@ class Game {
 			truth: new Object(),
 			turn: 0,		
 		};
+		this.tchat = new Array();
 		this.step = 0;
 		// this.method = new Method(this);
 	}

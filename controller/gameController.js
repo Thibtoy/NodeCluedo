@@ -59,7 +59,7 @@ exports.connectGame = function(req, res) {
 		setEvidenceList(game);
 		res.status(200).send({connected: true});
 	}
-	else res.status(200).send({players: game.state.players});
+	else res.status(200).send({players: game.state.players, tchat: game.tchat});
 }
 
 exports.getGame = function(req, res) {
@@ -124,6 +124,13 @@ exports.animation = function(req, res) {
 exports.loadedBug = function(req, res) {
 	let decoded = jwt.verify(req.params.token, SECRET)
 	this.inGame[decoded.id].state.players[decoded.player].loaded = true;
+	res.status(200).send(true);
+}
+
+exports.tchat = function(req, res) {
+	let decoded = jwt.verify(req.body.token, SECRET);
+	let game = this.inGame[decoded.id];
+	game.tchat.push(' '+game.state.players[decoded.player].state.name+' - '+req.body.message);
 	res.status(200).send(true);
 }
 

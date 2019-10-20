@@ -10,6 +10,7 @@
   	<style type="text/css">
     	* {
     		margin: 0;
+    		padding: 0;
     	}
     	body {
     		width: 100vw;
@@ -19,6 +20,7 @@
     		background-repeat: no-repeat;
     		background-position: center;
     		background-attachment: fixed;
+    		overflow: hidden;
     	}
     	header {
     		width: 100vw;
@@ -62,6 +64,37 @@
     		width: 15px;
     		margin-left: 15px;
     	}
+    	#TchatBox {
+    		position: absolute;
+    		display: flex;
+    		flex-direction: column;
+    		justify-content: space-evenly;
+    		align-items: flex-start;
+    		width: 250px;
+    		height: 225px;
+    		margin-left: calc((100% - 250px)*0.02);
+    		border-radius: 3px;
+    		background-color: rgba(255, 255, 255, 0.85);
+    		box-shadow: 0 0 0.8em 0.02em gold;
+    	}
+    	#TchatList {
+    		box-sizing: border-box;
+    		align-self: center;
+    		border-radius: 3px;
+    		padding: 0 2px;
+    		height: 140px;
+    		width: 244px;
+    		background-color: white;
+    		border: 1px solid black;
+    		overflow-y: scroll;
+    	}
+    	#TchatMessage {
+    		width: 242px;
+    		align-self: center;
+    	}
+    	li {
+    		display: block;
+    	}
     </style>
 </head>
 <body>
@@ -80,7 +113,14 @@
 		</div>
 		<div class="FormBoxAside"></div>
 	</div>
-	<div class="homeBoxAside"></div>
+	<div class="homeBoxAside">
+		<div id="TchatBox">
+			<ul id="TchatList"></ul>
+			<label for="TchatMessage" style="margin-left: 3px;">Tap your message:</label>
+			<textarea id="TchatMessage" row="5" col="33"></textarea>
+			<input id="SendMessage" type="button" value="Send" style="margin-left: 3px">
+		</div>
+	</div>
 	<script type="module" src="../cluedo/javascript/lobby.js"></script>
 </body>
 </html>

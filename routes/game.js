@@ -10,6 +10,7 @@ module.exports = function(app) {
 	gameController.throwDices = gameController.throwDices.bind(app.Store);
 	gameController.mouve = gameController.mouve.bind(app.Store);
 	gameController.animation = gameController.animation.bind(app.Store);
+	gameController.tchat = gameController.tchat.bind(app.Store);
 	gameController.test = gameController.test.bind(app.Store);
 
 	app.route('/')
@@ -45,6 +46,10 @@ module.exports = function(app) {
 	app.route('/loadedBug/:token')
 		.post(gameController.loadedBug)
 
+	app.route('/tchat')
+		.post(gameController.tchat)
+
 	app.route('/test')
 		.post(gameController.test)
+
 }
