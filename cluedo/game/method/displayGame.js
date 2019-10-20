@@ -21,13 +21,16 @@ export function displayGame(game) {
 		if (!game.owner.loaded) {
 			loadedBug()	
 		}
-		update(token, game);
-		map.groundMap.drawMap(state.ctx);
-		map.wallMap.drawMap(state.ctx);
-		map.upstairMap.drawMap(state.ctx);
-		map.characterMap.drawMap(state.ctx);
-		if (game.state.popUp.visibility) {
-			game.drawPopUp();
+		if (!game.update) {
+			update(token, game);
+			map.groundMap.drawMap(state.ctx);
+			map.wallMap.drawMap(state.ctx);
+			map.upstairMap.drawMap(state.ctx);
+			map.characterMap.drawMap(state.ctx);
+			if (game.state.popUp.visibility) {
+				game.drawPopUp();
+			}
+			game.update = false;
 		}	
 	}, 30);
 }
