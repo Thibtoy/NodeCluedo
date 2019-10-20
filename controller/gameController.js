@@ -134,6 +134,12 @@ exports.tchat = function(req, res) {
 	res.status(200).send(true);
 }
 
+exports.getTchat = function(req, res) {
+	let decoded = jwt.verify(req.body.token, SECRET);
+	let game = this.inGame[decoded.id];
+	res.status(200).send(game.tchat);
+}
+
 exports.test = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET);
 	this.inGame[decoded.id].end = true;

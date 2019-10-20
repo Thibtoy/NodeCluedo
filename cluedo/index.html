@@ -24,12 +24,50 @@
 			background-color: white;
 			align-self: flex-start;
 		}
+		#TchatBox {
+    		position: absolute;
+    		left: 15px;
+    		bottom: 15px;
+    		display: flex;
+    		flex-direction: column;
+    		justify-content: space-evenly;
+    		align-items: flex-start;
+    		width: 250px;
+    		height: 225px;
+    		border-radius: 3px;
+    		background-color: rgba(255, 255, 255, 0.85);
+    		box-shadow: 0 0 0.8em 0.02em gold;
+    	}
+    	#TchatList {
+    		box-sizing: border-box;
+    		align-self: center;
+    		border-radius: 3px;
+    		padding: 0 2px;
+    		height: 140px;
+    		width: 244px;
+    		background-color: white;
+    		border: 1px solid black;
+    		overflow-y: scroll;
+    	}
+    	#TchatMessage {
+    		width: 242px;
+    		align-self: center;
+    	}
+    	li {
+    		display: block;
+    	}
 	</style>
 </head>
 <body>
 	<div id="ClueList"></div>
 	<canvas id='Canva'></canvas>
 	<div id="EvidenceList">Test</div>
+	<div id="TchatBox">
+			<ul id="TchatList"></ul>
+			<label for="TchatMessage" style="margin-left: 3px;">Tap your message:</label>
+			<textarea id="TchatMessage" row="5" col="33"></textarea>
+			<input id="SendMessage" type="button" value="Send" style="margin-left: 3px">
+		</div>
 	<script type="module" src="../cluedo/initialisation.js"></script>
 </body>
 </html>
