@@ -1,12 +1,12 @@
 class Character {
-	constructor(url, x, y, direction) {
+	constructor(path, url, x, y, direction) {
 		this.state = {
 			x: x,
 			y: y,
 			direction: direction,
 			etatAnimation: -1,
 		}
-		this.src = "../cluedo/game/assets/characterSprites/"+url+".png";
+		this.src = path+"/assets/characterSprites/"+url+".png";
 	}
 }
 

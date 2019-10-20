@@ -9,6 +9,8 @@ const DIRECTION = {
 	"TOP": 3
 }
 
+const path = (process.env.PORT)? 'https://clue-game.s3.eu-west-3.amazonaws.com' : '../cluedo/game';
+
 function loadGameData(game) {
 	return new Promise((resolve, reject) => {
 		game.state.characters = new Array();
@@ -23,7 +25,7 @@ function loadGameData(game) {
 					if (type === 'characters') {
 						for (let i = 0, n = data[type].length; i < n; i++) {
 							let character = data[type][i];
-							game.state[type].push(new Character(character.name, character.x, character.y, DIRECTION[character.direction]))
+							game.state[type].push(new Character(path, character.name, character.x, character.y, DIRECTION[character.direction]))
 						}
 					}
 					else game.state[type] = data[type];
