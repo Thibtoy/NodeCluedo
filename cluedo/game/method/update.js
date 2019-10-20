@@ -1,7 +1,7 @@
 import {listenGame} from './listenGame.js';
 
 export function update(token, game) {
-	game.update = true;
+	game.updatePlay = true;
 	$.post('/getGame', {token}, function(updated) {
 		for (let i = 0, l = game.state.players.length; i < l; i++) {
 			game.state.players[i].state.character.state = updated.state.players[i].state.character.state;

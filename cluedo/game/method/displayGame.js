@@ -21,7 +21,7 @@ export function displayGame(game) {
 		if (!game.owner.loaded) {
 			loadedBug()	
 		}
-		if (!game.update) {
+		if (!game.updatePlay) {
 			update(token, game);
 			map.groundMap.drawMap(state.ctx);
 			map.wallMap.drawMap(state.ctx);
@@ -30,7 +30,7 @@ export function displayGame(game) {
 			if (game.state.popUp.visibility) {
 				game.drawPopUp();
 			}
-			game.update = false;
+			game.updatePlay = false;
 		}	
 	}, 30);
 }

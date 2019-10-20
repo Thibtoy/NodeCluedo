@@ -27,24 +27,25 @@ GO.addEventListener('click', function() {
 	ready = (!ready)? true : false;
 });
 
+var update = false;
+
 // var tchatList = document.getElementById('TchatList');
 
 setInterval(function() {
-	$.post('/connectGame', {token, ready}, function(data){
-		if (!data.connected) {
-			for (let i = 0, n = data.players.length; i < n; i++) {
-				if (!previousState.players[i]) ul.appendChild(listItem(data.players, i));
-				else if (previousState.players[i].ready != data.players[i].ready) ul.replaceChild(listItem(data.players, i), document.getElementById('Li'+i));
+	if (!update) {
+		update = true;
+		$.post('/connectGame', {token, ready}, function(data){
+			if (!data.connected) {
+				for (let i = 0, n = data.players.length; i < n; i++) {
+					if (!previousState.players[i]) ul.appendChild(listItem(data.players, i));
+					else if (previousState.players[i].ready != data.players[i].ready) ul.replaceChild(listItem(data.players, i), document.getElementById('Li'+i));
+				}
+				previousState.players = data.players;
+				update = false;
 			}
-			// for (let i = 0, n = data.tchat.length; i < n; i++) {
-			// 	if (!previousState.tchat[i]) tchatList.appendChild(tchatMessage(data.tchat[i], i));
-			// }
-			// previousState.tchat = data.tchat;
-			previousState.players = data.players;
-
-		}
-		else window.location.pathname = '/game'
-	})
+			else window.location.pathname = '/game';
+		});
+	}
 }, 100);
 
 tchatSystem(token);

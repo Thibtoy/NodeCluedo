@@ -3,6 +3,7 @@ export function tchatSystem(token) {
 	var tchatBox = document.getElementById('TchatBox');
 	var tchatList = document.getElementById('TchatList');
 	var previousState = new Array();
+	var update = false;
 
 	tchatBox.addEventListener('click', selectTchatBox);
 
@@ -17,12 +18,16 @@ export function tchatSystem(token) {
 	document.getElementById('SendMessage').addEventListener('click', tchat);
 
 	setInterval(function() {
-		$.post('/getTchat', {token}, function(tchat) {
-			for (let i = 0, n = tchat.length; i < n; i++) {
-				if (!previousState[i]) tchatList.appendChild(tchatMessage(tchat[i], i));
-			}
-			previousState = tchat;
-		});
+		if(!update) {
+			update = true;
+			$.post('/getTchat', {token}, function(tchat) {
+				for (let i = 0, n = tchat.length; i < n; i++) {
+					if (!previousState[i]) tchatList.appendChild(tchatMessage(tchat[i], i));
+				}
+				previousState = tchat;
+				update = false;
+			});
+		}
 	}, 100);
 
 	function tchat() {
