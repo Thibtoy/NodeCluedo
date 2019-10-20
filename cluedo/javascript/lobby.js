@@ -45,7 +45,7 @@ setInterval(function() {
 		}
 		else window.location.pathname = '/game'
 	})
-}, 1000);
+}, 100);
 
 tchatSystem(token);
 

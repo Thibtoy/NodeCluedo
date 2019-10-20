@@ -35,7 +35,7 @@ window.onload = function() {
 			game.removeEventListener = removeEventListener.bind(game);
 			game.owner = game.state.players[decoded.player];
 			game.turnOn = false;
-			//tchatSystem(token);
+			tchatSystem(token);
 			loadMapAndData(game);
 			createPopUpList(game);
 			displayGame(game);

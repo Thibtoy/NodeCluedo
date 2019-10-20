@@ -23,7 +23,7 @@ export function tchatSystem(token) {
 			}
 			previousState = tchat;
 		});
-	}, 1000);
+	}, 100);
 
 	function tchat() {
 		let message = input.value;
