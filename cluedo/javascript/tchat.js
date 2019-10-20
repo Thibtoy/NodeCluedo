@@ -12,7 +12,7 @@ export function tchatSystem(token) {
 
 	input.addEventListener('blur', function() {
 		input.removeEventListener('keydown', focus);
-	})
+	});
 
 	document.getElementById('SendMessage').addEventListener('click', tchat);
 
@@ -22,8 +22,8 @@ export function tchatSystem(token) {
 				if (!previousState[i]) tchatList.appendChild(tchatMessage(tchat[i], i));
 			}
 			previousState = tchat;
-		}, 1000);
-	})
+		});
+	}, 1000);
 
 	function tchat() {
 		let message = input.value;
