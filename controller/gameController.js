@@ -59,7 +59,7 @@ exports.connectGame = function(req, res) {
 		setEvidenceList(game);
 		res.status(200).send({connected: true});
 	}
-	else res.status(200).send({players: game.state.players, tchat: game.tchat});
+	else res.status(200).send({players: game.state.players});
 }
 
 exports.getGame = function(req, res) {

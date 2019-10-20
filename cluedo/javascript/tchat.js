@@ -22,7 +22,7 @@ export function tchatSystem(token) {
 				if (!previousState[i]) tchatList.appendChild(tchatMessage(tchat[i], i));
 			}
 			previousState = tchat;
-		})
+		}, 1000);
 	})
 
 	function tchat() {
