@@ -78,6 +78,7 @@ function tchat() {
 }
 
 function selectTchatBox(event) {
+	event.stopPropagation();
 	let id = event.target.getAttribute('id');
 	if (id != 'TchatMessage' && id != 'SendMessage') {
 		tchatBox.removeEventListener('click', selectTchatBox);
@@ -87,11 +88,12 @@ function selectTchatBox(event) {
 }
 
 function move(event) {
-	tchatBox.style.left = event.clientX-30+'px';
-	tchatBox.style.top = event.clientY-10+'px';
+	tchatBox.style.left = event.clientX-40+'px';
+	tchatBox.style.top = event.clientY-20+'px';
 }
 
-function removeMove() {
+function removeMove(event) {
+	event.stopPropagation();
 	document.removeEventListener('click', removeMove);
 	document.removeEventListener('mousemove', move);
 	tchatBox.addEventListener('click', selectTchatBox);
