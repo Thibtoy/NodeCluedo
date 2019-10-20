@@ -1,9 +1,9 @@
 import {Tileset} from './tileset.js';
 
 export class Map {
-	constructor(tileset, field) {
+	constructor(path, tileset, field) {
 		this.state = {
-			tileset: new Tileset('../cluedo/game/assets/tilesets/'+tileset+'.png'),
+			tileset: new Tileset(path+'/assets/tilesets/'+tileset+'.png'),
 			field: field,
 			characters: new Array(),
 		}
