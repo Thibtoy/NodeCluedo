@@ -32,5 +32,5 @@ export function displayGame(game) {
 			}
 			game.updatePlay = false;
 		}	
-	}, 30);
+	}, 35);
 }

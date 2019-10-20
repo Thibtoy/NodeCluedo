@@ -28,7 +28,7 @@ export function tchatSystem(token) {
 				update = false;
 			});
 		}
-	}, 100);
+	}, 700);
 
 	function tchat() {
 		let message = input.value;
