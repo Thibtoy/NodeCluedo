@@ -82,7 +82,7 @@ function selectTchatBox(event) {
 	if (id != 'TchatMessage' && id != 'SendMessage') {
 		tchatBox.removeEventListener('click', selectTchatBox);
 		document.addEventListener('mousemove', move);
-		tchatBox.addEventListener('click', removeMove)
+		document.addEventListener('click', removeMove)
 	}
 }
 
@@ -92,7 +92,7 @@ function move(event) {
 }
 
 function removeMove() {
-	tchatBox.removeEventListener('click', removeMove);
+	document.removeEventListener('click', removeMove);
 	document.removeEventListener('mousemove', move);
 	tchatBox.addEventListener('click', selectTchatBox);
 }
