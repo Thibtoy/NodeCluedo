@@ -78,7 +78,7 @@ exports.listenGame = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET)
 	let game = this.inGame[decoded.id];
 	if(!game) res.status(404);
-	if (game.step === 0) playerTurn(game);
+	if (game.step === 0 && decoded.player === game.state.turn) playerTurn(game);
 	if (decoded.player === game.state.turn) res.status(200).send({step: game.step});
 	else res.status(200).send(false);
 }
@@ -86,7 +86,6 @@ exports.listenGame = function(req, res) {
 exports.throwDices = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET)
 	let game = this.inGame[decoded.id];
-	game.newTurn = false;
 	if (decoded.player === game.state.turn && game.step === 1) {
 		game.step = 2;
 		throwDices(game.currentPlayer, 2);
