@@ -74,6 +74,24 @@ exports.getGame = function(req, res) {
 	});
 }
 
+exports.updateGame = function(req, res) {
+	jwt.verify(req.body.token, SECRET, (err, decoded) => {
+		if (err) res.status(200).send(false);
+		else {
+			let game = this.inGame[decoded.id];
+			if (!game) res.status(200).send(false);
+			res.status(200).send({
+				players: game.state.players, 
+				newTurn: game.newTurn, 
+				lastStep: game.lastStep,
+				popUp: game.popUp,
+				popUpContent: game.popUpContent,
+				tchat: game.tchat,
+			});
+		}
+	});
+}
+
 exports.listenGame = function(req, res) {
 	let decoded = jwt.verify(req.body.token, SECRET)
 	let game = this.inGame[decoded.id];

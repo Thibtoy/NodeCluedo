@@ -12,6 +12,7 @@ module.exports = function(app) {
 	gameController.animation = gameController.animation.bind(app.Store);
 	gameController.tchat = gameController.tchat.bind(app.Store);
 	gameController.getTchat = gameController.getTchat.bind(app.Store);
+	gameController.updateGame = gameController.updateGame.bind(app.Store);
 	gameController.test = gameController.test.bind(app.Store);
 
 	app.route('/')
@@ -31,6 +32,9 @@ module.exports = function(app) {
 
 	app.route('/getGame')
 		.post(gameController.getGame);
+
+	app.route('/updateGame')
+		.post(gameController.updateGame)
 
 	app.route('/listenGame')
 		.post(gameController.listenGame)
