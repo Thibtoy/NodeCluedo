@@ -9,7 +9,7 @@ const DIRECTION = {
 	"TOP": 3
 }
 
-const path = (process.env.PORT)? 'https://s3.amazonaws.com/clue-game' : '../cluedo/game';
+const path = (process.env.PORT)? 'https://clue-game.s3.eu-west-3.amazonaws.com' : '../cluedo/game';
 
 function loadGameData(game) {
 	return new Promise((resolve, reject) => {
