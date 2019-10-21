@@ -17,18 +17,20 @@ export function tchatSystem(token) {
 
 	document.getElementById('SendMessage').addEventListener('click', tchat);
 
-	setInterval(function() {
-		if(!update) {
-			update = true;
-			$.post('/getTchat', {token}, function(tchat) {
-				for (let i = 0, n = tchat.length; i < n; i++) {
-					if (!previousState[i]) tchatList.appendChild(tchatMessage(tchat[i], i));
-				}
-				previousState = tchat;
-				update = false;
-			});
-		}
-	}, 700);
+	if (window.location.pathname.split('/')[1] === 'lobby') {
+		setInterval(function() {
+			if(!update) {
+				update = true;
+				$.post('/getTchat', {token}, function(tchat) {
+					for (let i = 0, n = tchat.length; i < n; i++) {
+						if (!previousState[i]) tchatList.appendChild(tchatMessage(tchat[i], i));
+					}
+					previousState = tchat;
+					update = false;
+				});
+			}
+		}, 500);
+	}
 
 	function tchat() {
 		let message = input.value;

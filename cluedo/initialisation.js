@@ -8,7 +8,7 @@ import {createPopUpList} from './game/method/createPopUpList.js';
 import {throwDices} from './javascript/throwDices.js';
 import {mouve} from './javascript/mouve.js';
 import {removeEventListener} from './javascript/removeEventListener.js';
-// import {tchatSystem} from './javascript/tchat.js';
+import {tchatSystem} from './javascript/tchat.js';
 
 const token = sessionStorage.getItem('token') || 'token';
 
@@ -35,7 +35,7 @@ window.onload = function() {
 			game.removeEventListener = removeEventListener.bind(game);
 			game.owner = game.state.players[decoded.player];
 			game.turnOn = false;
-			//tchatSystem(token);
+			tchatSystem(token);
 			loadMapAndData(game);
 			createPopUpList(game);
 			displayGame(game);
